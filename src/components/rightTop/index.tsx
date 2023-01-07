@@ -35,7 +35,12 @@ export default () => {
         src={initialState?.userInfo.headImg}
         icon={<UserOutlined />}
       />
-      <Dropdown menu={{ items, onClick }} trigger={['click']}>
+      <Dropdown
+        menu={{ items, onClick }}
+        trigger={['click']}
+        placement="bottomLeft"
+        arrow
+      >
         <a onClick={(e) => e.preventDefault()}>
           <Space>
             {initialState?.userInfo.username}

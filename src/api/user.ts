@@ -1,4 +1,8 @@
 import request from '../utils/request';
+type params = {
+  page: number;
+  pagesize: number;
+};
 //登录
 export const loginApi = (data: { username: any; password: any }) => {
   return request({
@@ -11,5 +15,27 @@ export const loginApi = (data: { username: any; password: any }) => {
 export const getUserInfoApi = () => {
   return request({
     url: '/user/getInfo',
+  });
+};
+//获取买车用户
+export const getBuyCarApi = (params: params) => {
+  return request({
+    url: '/user/buyCar',
+    params,
+  });
+};
+//获取卖车用户
+export const getSellCarApi = (params: params) => {
+  return request({
+    url: '/user/sellCar',
+    params,
+  });
+};
+//设置账户状态
+export const setAccountTypeApi = (data: any) => {
+  return request({
+    url: '/user/setType',
+    method: 'PUT',
+    data,
   });
 };
