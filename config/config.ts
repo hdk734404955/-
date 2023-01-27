@@ -8,7 +8,7 @@ export default defineConfig({
   layout: {
     // 支持任何不需要 dom 的
     // https://procomponents.ant.design/components/layout#prolayout
-    name: '二手车交易平台',
+    name: '劲劲二手车',
     locale: false,
     layout: 'side',
     contentWidth: 'Fluid',

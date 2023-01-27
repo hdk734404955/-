@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Avatar, Tag, Switch } from 'antd';
+import { Card, Table, Avatar, Tag, Switch, message } from 'antd';
 import { getBuyCarApi, setAccountTypeApi } from '@/api/user';
 import type { ColumnsType } from 'antd/es/table';
 import { UserOutlined } from '@ant-design/icons';
@@ -78,6 +78,7 @@ const index = () => {
               id: text.id,
               type,
             });
+            message.success('操作成功', 1.5);
             getBuyCar();
           }}
         />

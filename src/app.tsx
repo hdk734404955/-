@@ -20,16 +20,18 @@ export const layout = async ({ initialState }: any) => {
   return {
     onPageChange: async () => {
       //登录鉴权
+
       if (!initialState.token) {
-        history.replace('/login');
-      } else {
-        //如果有token去往登录注册页，强制返回
-        if (
-          history.location.pathname === '/login' ||
-          history.location.pathname === '/register'
-        ) {
-          history.go(-1);
+        if (history.location.pathname === '/register') {
+          return history.replace('/register');
         }
+        history.replace('/login');
+      } else if (
+        history.location.pathname === '/login' ||
+        history.location.pathname === '/register'
+      ) {
+        //如果有token去往登录注册页，强制返回
+        history.goBack();
       }
     },
     rightContentRender: () => {

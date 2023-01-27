@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Table, Avatar } from 'antd';
+import { Card, Table, Avatar, Tag } from 'antd';
 import { getRecordAdminApi } from '@/api/record';
 import type { ColumnsType } from 'antd/es/table';
+import format from '@/utils/type';
 const index = () => {
   type DataType = {
     id: number;
@@ -10,14 +11,23 @@ const index = () => {
     type: string;
     event: string;
   };
+  type params = {
+    pageData?: {
+      page: number;
+      pagesize: number;
+    };
+    filter?: any;
+  };
   const [tableList, setTableList] = useState({
     data: [],
     total: 0,
   });
   //分页数据
-  const [params, setParams] = useState({
-    page: 1,
-    pagesize: 6,
+  const [params, setParams] = useState<params>({
+    pageData: {
+      page: 1,
+      pagesize: 6,
+    },
   });
   //loading
   const [loading, setloading] = useState(false);
@@ -49,14 +59,17 @@ const index = () => {
       filters: [
         {
           text: '登录事件',
-          value: '登录事件',
+          value: 2,
         },
         {
-          text: 'New York',
-          value: 'New York',
+          text: '修改用户事件',
+          value: 3,
         },
       ],
-      onFilter: (value: any, record: any) => record.type.indexOf(value) === 0,
+      render: (text) => {
+        const data = format.eventType.find((item) => item.type === text);
+        return data ? <Tag color={data.color}>{data.value}</Tag> : '未知';
+      },
     },
     {
       title: '事件详情',
@@ -68,14 +81,16 @@ const index = () => {
   const getRecordAdmin = async () => {
     setloading(true);
     const data = await getRecordAdminApi(params);
-    setloading(false);
     setTableList(data);
+    setloading(false);
   };
-  //分页
-  const pageChange = (page: any) => {
+  const pageChange = (page: any, filter: any) => {
     setParams({
-      ...params,
-      page,
+      pageData: {
+        page: page.current,
+        pagesize: page.pageSize,
+      },
+      filter: filter.type ? filter : null,
     });
   };
   useEffect(() => {
@@ -96,12 +111,12 @@ const index = () => {
           loading={loading}
           pagination={{
             position: ['bottomCenter'],
-            current: params.page,
-            pageSize: params.pagesize,
+            current: params.pageData?.page,
+            pageSize: params.pageData?.pagesize,
             total: tableList.total,
-            onChange: pageChange,
             showTotal: (total) => `共${total}条数据`,
           }}
+          onChange={pageChange}
         ></Table>
       </Card>
     </div>

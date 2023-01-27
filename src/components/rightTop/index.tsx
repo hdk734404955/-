@@ -12,9 +12,8 @@ const items: MenuProps['items'] = [
   },
 ];
 
-export default () => {
+export default (props: any) => {
   const { initialState, setInitialState } = useModel('@@initialState');
-
   //退出操作
   const onClick: MenuProps['onClick'] = ({ key }) => {
     if (key === '0') {
@@ -41,7 +40,7 @@ export default () => {
         placement="bottomLeft"
         arrow
       >
-        <a onClick={(e) => e.preventDefault()}>
+        <a onClick={(e) => e.preventDefault()} style={props.children}>
           <Space>
             {initialState?.userInfo.username}
             <DownOutlined />

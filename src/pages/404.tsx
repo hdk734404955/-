@@ -5,7 +5,7 @@ import { history } from 'umi';
 const NoFoundPage: React.FC = () => (
   <Result
     style={{
-      height: '100%',
+      height: '94.5vh',
     }}
     status="404"
     title="404"

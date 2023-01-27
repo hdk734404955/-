@@ -32,8 +32,13 @@ const index = () => {
             token,
             userInfo,
           });
-          message.success('登录成功', 1.5);
-          history.push('/');
+          if (userInfo.role === 2) {
+            message.success('登录成功', 1.5);
+            history.push('/buyhome');
+          } else {
+            message.success('登录成功', 1.5);
+            history.push('/');
+          }
         });
       }
     } catch (error) {
@@ -44,8 +49,8 @@ const index = () => {
   };
   return (
     <div className={Style.box}>
-      <Card bordered={false} style={{ width: 500, height: 350 }}>
-        <p className={Style.title}>二手车交易平台</p>
+      <Card bordered={false} style={{ width: '33vw', height: 'auto' }}>
+        <p className={Style.title}>劲劲二手车</p>
         <Form
           name="login"
           wrapperCol={{ span: 16 }}

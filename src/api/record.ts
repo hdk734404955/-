@@ -1,7 +1,10 @@
 import request from '../utils/request';
 type params = {
-  page: number;
-  pagesize: number;
+  pageData?: {
+    page: number;
+    pagesize: number;
+  };
+  filter?: any;
 };
 //获取管理员日志
 export const getRecordAdminApi = (params: params) => {

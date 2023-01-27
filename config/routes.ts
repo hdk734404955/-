@@ -18,6 +18,42 @@ export default [
     name: '首页',
     icon: 'DashboardOutlined',
     component: '@/pages/home',
+    access: 'sellcar',
+  },
+  {
+    path: '/buyhome',
+    name: '买车首页',
+    component: '@/pages/buyHome',
+    // exact: true,
+    layout: false,
+    hideInMenu: true,
+    access: 'buycar',
+    routes: [
+      {
+        path: '/buyhome',
+        redirect: '/buyhome/myhome',
+      },
+      {
+        path: '/buyhome/myhome',
+        component: '@/pages/buyHome/myHome',
+      },
+      {
+        path: '/buyhome/mycollect',
+        component: '@/pages/buyHome/myCollect',
+      },
+      {
+        path: '/buyhome/myorder',
+        component: '@/pages/buyHome/myOrder',
+      },
+      {
+        path: '/buyhome/myinfo',
+        component: '@/pages/buyHome/myInfo',
+      },
+      {
+        path: '/buyhome/carinfo',
+        component: '@/pages/buyHome/carInfo',
+      },
+    ],
   },
   {
     path: '/user',
@@ -55,8 +91,9 @@ export default [
       },
       {
         path: '/vehicle/carPolicy',
-        name: '车辆政策',
+        name: '购车政策',
         component: '@/pages/vehicle/carPolicy',
+        access: 'admin',
       },
       {
         path: '/vehicle/order',

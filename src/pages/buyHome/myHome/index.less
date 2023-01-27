@@ -1,0 +1,214 @@
+.topCard {
+  display: flex;
+  height: 271px;
+  width: 1200px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  background-color: #ffffff;
+  box-shadow: 0 1px 20px 0;
+  border-radius: 6px;
+  margin-top: -40px;
+  .leftCard {
+    width: 708px;
+    margin-right: 52px;
+    h5 {
+      font-size: 22px;
+      color: #181818;
+      letter-spacing: 0.75px;
+      height: 22px;
+      font-weight: 700;
+      padding-left: 50px;
+      margin-top: 23px;
+    }
+    .leftBrand {
+      display: flex;
+      margin-top: 35px;
+      padding-left: 50px;
+      .item {
+        width: 100px;
+        height: 23px;
+        justify-content: center;
+        color: #181818;
+        text-overflow: ellipsis;
+        font-size: 14px;
+        img {
+          width: 24px;
+          height: 24px;
+          object-fit: cover;
+          margin-right: 3px;
+        }
+        span:hover {
+          color: #3cb46d;
+        }
+      }
+    }
+    .price {
+      display: flex;
+      margin-top: 30px;
+      padding-left: 77px;
+      .item {
+        width: 100px;
+        height: 23px;
+        justify-content: center;
+        color: #181818;
+        text-overflow: ellipsis;
+        font-size: 14px;
+      }
+    }
+    .recommend {
+      display: flex;
+      margin-top: 30px;
+      padding-left: 77px;
+      .item {
+        width: 100px;
+        height: 23px;
+        justify-content: center;
+        color: #181818;
+        text-overflow: ellipsis;
+        font-size: 14px;
+      }
+    }
+    .button {
+      display: flex;
+      margin-top: 30px;
+      //   padding-left: 210px;
+      justify-content: center;
+      .btn:hover,
+      .btn:focus {
+        color: #3cb46d;
+        border-color: #3cb46d;
+        background: #fff;
+      }
+    }
+  }
+}
+.centerBox {
+  width: 1200px;
+  margin: 0 auto;
+  //   height: 1000px;
+  //   background-color: #3cb46d;
+  .center {
+    // background-color: #3cb46d;
+    // height: 800px;
+    margin-top: 20px;
+    .topTitle {
+      height: 70px;
+      line-height: 70px;
+      //   background-color: yellowgreen;
+      span {
+        margin-right: 28px;
+        font-size: 16px;
+        color: #999;
+        cursor: pointer;
+        height: 22.5px;
+      }
+    }
+    .content {
+      width: 1220px;
+      display: flex;
+      flex-wrap: wrap;
+      margin-left: -10px;
+      .contentItem {
+        width: 305px;
+        height: 307px;
+        padding: 9px 8px;
+        box-sizing: border-box;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: column;
+        flex-direction: column;
+        background-color: #fff;
+        border: none;
+        position: relative;
+        cursor: pointer;
+        margin-bottom: 10px;
+        border: 1px solid transparent;
+
+        &:hover {
+          border: 1px solid #e6e6e6;
+          color: #495056;
+          box-shadow: 0 0 5px 2px #e6e6e6;
+        }
+        img {
+          border: none;
+          width: 100%;
+          height: 193px;
+          border-radius: 4px;
+        }
+        h5 {
+          padding-left: 4px;
+          margin: 5px 0 6px;
+          font-size: 17px;
+          color: #495056;
+          font-weight: 500;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+        .contentTag {
+          color: #a5abb2;
+          font-size: 14px;
+          height: 22px;
+          box-sizing: border-box;
+          padding: 0 0 2px 4px;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+        }
+        .contentPrice {
+          padding-left: 4px;
+          height: 30px;
+          font-size: 20px;
+          color: #fa5428;
+          overflow: hidden;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          p {
+            line-height: 30px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            font-weight: 700;
+            :first-child {
+              font-family: gzfont;
+            }
+            :last-child {
+              font-size: 14px;
+              font-weight: 400;
+              margin-top: 2px;
+            }
+          }
+        }
+        .iconNew {
+          background-image: url('https://image1.guazistatic.com/qn2106281713536c32e4bda31ecf93d1da9f49c33bd301.png');
+          background-size: 451px 300px;
+          background-position: -36px -100px;
+          line-height: 48px;
+          position: absolute;
+          display: block;
+          width: 60px;
+          height: 55px;
+          text-align: center;
+          color: #fff;
+          top: -5px;
+          left: 11px;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  .centerFoot {
+    height: 40px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    // background-color: #181818;
+  }
+}
