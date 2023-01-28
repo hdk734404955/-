@@ -9,8 +9,8 @@ import { Modal, Upload, Progress } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 //实列化cos对象
 const cos = new COS({
-  SecretId: 'AKIDqUszpOfhTyCArGOGsDH4apnUw84j6D3g',
-  SecretKey: 'PYQ1KNAhxwe6HBpBG4cttb2D8l7C0Ypq',
+  SecretId: '',
+  SecretKey: '',
 });
 
 const index = (
