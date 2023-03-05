@@ -39,3 +39,27 @@ export const setAccountTypeApi = (data: any) => {
     data,
   });
 };
+//修改头像
+export const editHeadImgApi = (data: any) => {
+  return request({
+    url: '/user/img',
+    method: 'put',
+    data,
+  });
+};
+//校验密码是否正确
+export const checkPassWordApi = (data: any) => {
+  return request({
+    url: '/user/password',
+    data,
+    method: 'post',
+  });
+};
+//修改密码
+export const editPassWordApi = (data: any) => {
+  return request({
+    url: '/user/password',
+    data,
+    method: 'put',
+  });
+};

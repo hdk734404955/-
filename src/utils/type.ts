@@ -15,5 +15,15 @@ export default {
       value: '修改用户事件',
       color: 'volcano',
     },
+    {
+      type: '4',
+      value: '卖家操作事件',
+      color: 'orange',
+    },
+    {
+      type: '5',
+      value: '买家操作事件',
+      color: 'geekblue',
+    },
   ],
 };

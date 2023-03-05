@@ -17,15 +17,24 @@ export async function getInitialState() {
 }
 //layout运行时配置
 export const layout = async ({ initialState }: any) => {
+  //路由白名单
+  const whiteList: Array<string> = [
+    '/login',
+    '/register',
+    '/buyhome/carinfo',
+    '/buyhome/myhome',
+  ];
   return {
     onPageChange: async () => {
       //登录鉴权
 
       if (!initialState.token) {
-        if (history.location.pathname === '/register') {
-          return history.replace('/register');
+        //无token
+        const path: string = history.location.pathname;
+        const isPass = whiteList.includes(path);
+        if (!isPass) {
+          history.replace('/login');
         }
-        history.replace('/login');
       } else if (
         history.location.pathname === '/login' ||
         history.location.pathname === '/register'

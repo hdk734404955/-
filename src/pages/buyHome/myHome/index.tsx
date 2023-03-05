@@ -23,7 +23,7 @@ const index = (props: any) => {
   const [params, setParams] = useState<params>({
     pageData: {
       page: 1,
-      pagesize: 16,
+      pagesize: 12,
     },
     brand,
     price,
@@ -58,11 +58,13 @@ const index = (props: any) => {
   };
   //换页
   const changePage = (page: number, pageSize: number) => {
+    console.log(pageSize);
+
     setParams({
       ...params,
       pageData: {
         page,
-        pagesize: pageSize,
+        pagesize: params.pageData.pagesize,
       },
     });
   };
@@ -195,6 +197,7 @@ const index = (props: any) => {
         <div className={Style.centerFoot}>
           <Pagination
             current={params.pageData.page}
+            pageSize={params.pageData.pagesize}
             total={carList.total}
             showTotal={(total) => `共 ${total} 条数据`}
             onChange={changePage}

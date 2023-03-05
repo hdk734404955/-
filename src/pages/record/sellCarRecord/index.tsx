@@ -65,6 +65,10 @@ const index = () => {
           text: '登录事件',
           value: 2,
         },
+        {
+          text: '卖家操作事件',
+          value: 4,
+        },
       ],
       render: (text) => {
         const data = format.eventType.find((item) => item.type === text);

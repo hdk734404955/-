@@ -16,18 +16,18 @@ export default [
   {
     path: '/',
     name: '首页',
-    icon: 'DashboardOutlined',
-    component: '@/pages/home',
-    access: 'sellcar',
+    layout: false,
+    hideInMenu: true,
+    redirect: '/buyhome/myhome',
   },
   {
     path: '/buyhome',
-    name: '买车首页',
+    name: '首页',
     component: '@/pages/buyHome',
     // exact: true,
     layout: false,
     hideInMenu: true,
-    access: 'buycar',
+    // access: 'buycar',
     routes: [
       {
         path: '/buyhome',
@@ -53,7 +53,18 @@ export default [
         path: '/buyhome/carinfo',
         component: '@/pages/buyHome/carInfo',
       },
+      {
+        path: '/buyhome/payafter',
+        component: '@/pages/buyHome/payafter',
+      },
     ],
+  },
+  {
+    path: '/home',
+    name: '首页',
+    icon: 'DashboardOutlined',
+    component: '@/pages/home',
+    access: 'admin',
   },
   {
     path: '/user',
@@ -127,6 +138,28 @@ export default [
         path: '/record/sellCar',
         name: '卖车用户日志',
         component: '@/pages/record/sellCarRecord',
+      },
+      {
+        component: '@/pages/404',
+        layout: false,
+        hideInMenu: true,
+      },
+    ],
+  },
+  {
+    path: '/setting',
+    name: '个人中心',
+    icon: 'SettingOutlined',
+    routes: [
+      {
+        path: '/setting/info',
+        name: '个人资料',
+        component: '@/pages/setting/index.tsx',
+      },
+      {
+        path: '/setting/password',
+        name: '修改密码',
+        component: '@/pages/setting/password.tsx',
       },
       {
         component: '@/pages/404',

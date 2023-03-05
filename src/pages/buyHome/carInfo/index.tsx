@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getIdCarApi } from '@/api/car';
 import Style from './index.less';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
+import { useSelector, history } from 'umi';
+import { addCollectApi, getCollectApi } from '@/api/car';
+import { getToken } from '@/utils/cookie';
 const info = [
   '全景天窗',
   '远光灯高清',
@@ -14,19 +17,58 @@ const info = [
   '蓝牙/车载电话',
   '上坡辅助',
 ];
+import { addOrderApi, payOrderApi } from '@/api/pay';
+import qs from 'qs';
 const index = (props: any) => {
+  const token = getToken();
   const [carInfo, setCarInfo] = useState<any>({});
   const getIdCar = async () => {
     const data = await getIdCarApi(props.location.query.id);
     setCarInfo(data);
   };
+
+  //支付
+  const addOrder = async () => {
+    if (token) {
+      const orderData = await addOrderApi({
+        car_id: carInfo.id,
+        sell_id: carInfo.u_id,
+        img: carInfo.img,
+        title: carInfo.title,
+        price: carInfo.price,
+      });
+      const data = await payOrderApi(qs.stringify(orderData));
+      if (data.status === 'payloading') {
+        window.location.replace(data.url);
+      }
+    } else {
+      history.push('/login');
+    }
+  };
+  //收藏
+  const addCollect = async () => {
+    if (token) {
+      const status = await getCollectApi(carInfo.id);
+      if (status) {
+        await addCollectApi(carInfo);
+        message.success('添加成功', 1.5);
+      } else {
+        message.warning('已收藏无需添加', 1.5);
+      }
+    } else {
+      message.warning('请登录', 1.5);
+    }
+  };
   useEffect(() => {
     getIdCar();
+    document.documentElement.scrollTop = 0;
   }, []);
   return (
     <div className={Style.box}>
       <div className={Style.top}>
-        <Button className={Style.btn}>添加收藏</Button>
+        <Button className={Style.btn} onClick={addCollect}>
+          添加收藏
+        </Button>
       </div>
       <div className={Style.center}>
         <div className={Style.left}>
@@ -44,7 +86,7 @@ const index = (props: any) => {
             </li>
             <div></div>
             <li>
-              <span>{carInfo.CC ? carInfo.CC : '-'}L</span>排量
+              <span>{carInfo.CC ? `${carInfo.CC}T` : '-'}</span>排量
             </li>
             <div></div>
             <li>
@@ -77,7 +119,7 @@ const index = (props: any) => {
             </ul>
           </div>
           <div className={Style.btnbox}>
-            <Button>立即购买</Button>
+            <Button onClick={addOrder}>立即购买</Button>
           </div>
         </div>
       </div>
@@ -113,23 +155,19 @@ const index = (props: any) => {
           </li>
           <div className={Style.div}></div>
           <li>
-            <div>{carInfo.CC}L</div>排量
+            <div>{carInfo.CC ? `${carInfo.CC}T` : '-'}</div>排量
           </li>
           <div className={Style.div}></div>
           <li>
-            <div>{carInfo.home}</div>车牌归属地
+            <div>{carInfo.home ? carInfo.home : '-'}</div>车牌归属地
           </li>
           <div className={Style.div}></div>
           <li>
-            <div>{carInfo.speed}</div>变速箱
+            <div>{carInfo.speed ? carInfo.speed : '-'}</div>变速箱
           </li>
           <div className={Style.div}></div>
           <li>
-            <div>{carInfo.color}</div>车身颜色
-          </li>
-          <div className={Style.div}></div>
-          <li>
-            <div>{carInfo.CC}L</div>排量
+            <div>{carInfo.color ? carInfo.color : '-'}</div>车身颜色
           </li>
           <div className={Style.div}></div>
           <li>
@@ -164,21 +202,21 @@ const index = (props: any) => {
             </li>
             <li>
               <span>能源形式</span>
-              <div>{carInfo.energy}</div>
+              <div>{carInfo.energy ? carInfo.energy : '-'}</div>
             </li>
             <li>
               <span>发动机</span>
-              <div>{carInfo.CC}T</div>
+              <div>{carInfo.CC ? `${carInfo.CC}T` : '-'}</div>
             </li>
           </div>
           <div className={Style.item}>
             <li>
               <span>变速箱</span>
-              <div>{carInfo.speed}</div>
+              <div>{carInfo.speed ? carInfo.speed : '-'}</div>
             </li>
             <li>
               <span>车身形式</span>
-              <div>{carInfo.shape}</div>
+              <div>{carInfo.shape ? carInfo.shape : '-'}</div>
             </li>
             <li>
               <span>整车质保(生产厂商)</span>

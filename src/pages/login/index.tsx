@@ -34,10 +34,13 @@ const index = () => {
           });
           if (userInfo.role === 2) {
             message.success('登录成功', 1.5);
-            history.push('/buyhome');
+            history.push('/');
+          } else if (userInfo.role === 3) {
+            message.success('登录成功', 1.5);
+            history.push('/vehicle/carSale');
           } else {
             message.success('登录成功', 1.5);
-            history.push('/');
+            history.push('/home');
           }
         });
       }

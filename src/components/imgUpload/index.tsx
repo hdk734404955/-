@@ -8,10 +8,7 @@ import COS from 'cos-js-sdk-v5'; //引入腾讯云Cos包
 import { Modal, Upload, Progress } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 //实列化cos对象
-const cos = new COS({
-  SecretId: '',
-  SecretKey: '',
-});
+const cos = new COS({});
 
 const index = (
   { maxCount, getChild, getImg, childImg, childImgList }: any,
@@ -117,7 +114,7 @@ const index = (
   useEffect(() => {
     editChild();
     editChildList();
-  }, []);
+  }, [childImg]);
 
   return (
     <div>

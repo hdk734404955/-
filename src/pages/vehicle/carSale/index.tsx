@@ -10,15 +10,21 @@ import {
   Form,
   Input,
   Select,
-  DatePicker,
+  DatePicker as Pincker,
   InputNumber,
   message,
+  Popconfirm,
+  Card,
+  Avatar,
 } from 'antd';
 import moment from 'moment';
 import Config from './config';
 import ImgUpload from '@/components/imgUpload';
-import { addCarApi, getIdCarApi, editCarApi } from '@/api/car';
+import { addCarApi, getIdCarApi, editCarApi, delCarApi } from '@/api/car';
+import { useSelector } from 'umi';
+let DatePicker: any = Pincker;
 const index = () => {
+  const userInfo = useSelector((store: any) => store.user.userInfo);
   //汽车信息接口
   type CarInfo = {
     id?: number;
@@ -135,19 +141,6 @@ const index = () => {
           <Tag color="#87d068">已出售</Tag>
         ),
     },
-    {
-      title: '操作',
-      key: 'caozuo',
-      align: 'center',
-      render: (text: any, { id }: any) => (
-        <div>
-          <a style={{ marginRight: 5 }} onClick={() => editCar(id)}>
-            编辑
-          </a>
-          <a style={{ marginLeft: 5 }}>删除</a>
-        </div>
-      ),
-    },
   ];
   const pageChange = (page: any) => {
     setParams({
@@ -223,36 +216,76 @@ const index = () => {
   const getMonth = (data: any, dateString: string) => {
     setMonth(dateString);
   };
+  //删除
+  const confirm = async (id: number) => {
+    await delCarApi(id);
+    message.success('删除成功', 1.5);
+    getUidCar();
+  };
+  userInfo.role === 1
+    ? columns.push({
+        title: '卖家',
+        dataIndex: 'username',
+        align: 'center',
+        render: (text: any, record: any, index: any) => {
+          return <Avatar style={{ backgroundColor: '#A5D7FF' }}>{text}</Avatar>;
+        },
+      })
+    : columns.push({
+        title: '操作',
+        key: 'caozuo',
+        align: 'center',
+        render: (text: any, { id }: any) => (
+          <div>
+            <a style={{ marginRight: 5 }} onClick={() => editCar(id)}>
+              编辑
+            </a>
+            <Popconfirm
+              title="确定要删除吗?"
+              onConfirm={() => confirm(id)}
+              okText="确定"
+              cancelText="取消"
+            >
+              <a style={{ marginLeft: 5 }}>删除</a>
+            </Popconfirm>
+          </div>
+        ),
+      });
   useEffect(() => {
     getUidCar();
   }, [params]);
 
   return (
     <div>
-      <Button
-        type="primary"
-        style={{ margin: '5px 5px' }}
-        onClick={() => {
-          setStatus(0);
-          setModal(true);
-        }}
-      >
-        添加车辆
-      </Button>
-      <Table
-        rowKey="id"
-        loading={loading}
-        dataSource={data.data}
-        columns={columns}
-        pagination={{
-          position: ['bottomCenter'],
-          current: params.page,
-          pageSize: params.pagesize,
-          total: data.total,
-          showTotal: (total) => `共${total}条数据`,
-        }}
-        onChange={pageChange}
-      ></Table>
+      <Card bordered={false} style={{ width: '80vw', margin: '20px 0' }}>
+        {userInfo.role === 3 ? (
+          <Button
+            type="primary"
+            style={{ margin: '0 0 10px 0' }}
+            onClick={() => {
+              setStatus(0);
+              setModal(true);
+            }}
+          >
+            添加车辆
+          </Button>
+        ) : null}
+        <Table
+          rowKey="id"
+          loading={loading}
+          dataSource={data.data}
+          columns={columns}
+          pagination={{
+            position: ['bottomCenter'],
+            current: params.page,
+            pageSize: params.pagesize,
+            total: data.total,
+            showTotal: (total) => `共${total}条数据`,
+          }}
+          onChange={pageChange}
+        ></Table>
+      </Card>
+
       <Modal
         title={status === 0 ? '新增车辆' : '编辑车辆'}
         open={modal}
