@@ -25,5 +25,10 @@ export default {
       value: '买家操作事件',
       color: 'geekblue',
     },
+    {
+      type: '6',
+      value: '车辆管理事件',
+      color: 'purple',
+    },
   ],
 };

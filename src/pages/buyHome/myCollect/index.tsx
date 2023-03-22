@@ -3,6 +3,7 @@ import { getCollectAllApi, delCollectApi } from '@/api/car';
 import Style from './index.less';
 import { Button, Pagination, Tag, message, Popconfirm } from 'antd';
 import { getToken } from '@/utils/cookie';
+import { history } from 'umi';
 const index = () => {
   const [params, setParams] = useState({
     page: 1,
@@ -32,6 +33,14 @@ const index = () => {
     getAll();
     message.success('撤销成功', 1.5);
   };
+  const toInfo = (id: any) => {
+    history.push({
+      pathname: '/buyhome/carinfo',
+      query: {
+        id,
+      },
+    });
+  };
   useEffect(() => {
     if (getToken()) {
       getAll();
@@ -41,7 +50,11 @@ const index = () => {
     return (
       <div className={Style.box}>
         {List.data.map((item: any, index: any) => (
-          <div key={item.id} className={Style.item}>
+          <div
+            key={item.id}
+            className={Style.item}
+            onClick={() => toInfo(item.c_id)}
+          >
             <img src={item.img} alt="" />
             <div className={Style.title}>{item.title}</div>
             <div className={Style.price}>￥{item.price}万</div>

@@ -1,11 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Button, Checkbox, Form, Input, message } from 'antd';
-import {
-  getUserInfoApi,
-  editHeadImgApi,
-  checkPassWordApi,
-  editPassWordApi,
-} from '@/api/user';
+import { getUserInfoApi, editHeadImgApi } from '@/api/user';
 import ImgUpload from '@/components/imgUpload';
 const index = () => {
   const [form] = Form.useForm();

@@ -8,7 +8,10 @@ import COS from 'cos-js-sdk-v5'; //引入腾讯云Cos包
 import { Modal, Upload, Progress } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 //实列化cos对象
-const cos = new COS({});
+const cos = new COS({
+  SecretId: 'AKIDqUszpOfhTyCArGOGsDH4apnUw84j6D3g',
+  SecretKey: 'PYQ1KNAhxwe6HBpBG4cttb2D8l7C0Ypq',
+});
 
 const index = (
   { maxCount, getChild, getImg, childImg, childImgList }: any,

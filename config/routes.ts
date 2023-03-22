@@ -150,6 +150,7 @@ export default [
     path: '/setting',
     name: '个人中心',
     icon: 'SettingOutlined',
+    access: 'sellcar',
     routes: [
       {
         path: '/setting/info',

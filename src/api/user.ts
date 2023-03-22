@@ -11,6 +11,14 @@ export const loginApi = (data: { username: any; password: any }) => {
     data,
   });
 };
+//注册
+export const registerApi = (data: any) => {
+  return request({
+    url: '/user/register',
+    method: 'post',
+    data,
+  });
+};
 //获取用户信息
 export const getUserInfoApi = () => {
   return request({
@@ -61,5 +69,21 @@ export const editPassWordApi = (data: any) => {
     url: '/user/password',
     data,
     method: 'put',
+  });
+};
+//机器人接口
+export const messageApi = (data: any) => {
+  return request({
+    url: '/user/message',
+    data,
+    method: 'post',
+  });
+};
+//用户是否存在
+export const isOkApi = (data: any) => {
+  return request({
+    url: '/user/isok',
+    data,
+    method: 'post',
   });
 };

@@ -65,4 +65,34 @@ export default {
       value: '5-10',
     },
   ],
+  brandList: [
+    {
+      value: '本田',
+      label: '本田',
+    },
+    {
+      value: '大众',
+      label: '大众',
+    },
+    {
+      value: '宝马',
+      label: '宝马',
+    },
+    {
+      value: '丰田',
+      label: '丰田',
+    },
+    {
+      value: '奔驰',
+      label: '奔驰',
+    },
+    {
+      value: '奥迪',
+      label: '奥迪',
+    },
+    {
+      value: '别克',
+      label: '别克',
+    },
+  ],
 };

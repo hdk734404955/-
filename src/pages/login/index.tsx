@@ -1,14 +1,27 @@
-import { Card, Form, Input, Button, Spin, message } from 'antd';
+import { Card, Form, Input, Button, Spin, message, Drawer } from 'antd';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import Style from './index.less';
-import { history, useDispatch, useModel } from 'umi';
-import { useState } from 'react';
+import { history, useDispatch, useModel, Link } from 'umi';
+import { useState, useRef, useEffect } from 'react';
 import { loginApi, getUserInfoApi } from '@/api/user';
 import { setToken } from '@/utils/cookie';
 import { setUserInfo } from '@/utils/storage';
+const ImgList = [
+  '../../assets/01.jpg',
+  '../../assets/02.jpg',
+  '../../assets/03.jpg',
+  '../../assets/04.jpg',
+  '../../assets/05.jpg',
+  '../../assets/06.jpg',
+  '../../assets/07.jpg',
+  '../../assets/08.jpg',
+];
 const index = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false); //加载状态
+  const ImgRef = useRef<any>(null);
+  const [open, setOpen] = useState(false);
+  const [Index, setIndex] = useState(0);
   const { initialState, setInitialState } = useModel('@@initialState');
   type login = {
     username: any;
@@ -50,9 +63,52 @@ const index = () => {
       setLoading(false);
     }
   };
+  //打开
+  const openShow = (value: any) => {
+    setOpen(true);
+  };
+  //关闭
+  const onClose = () => {
+    setOpen(false);
+  };
+  //更换图片
+  const check = (img: string, i: number) => {
+    localStorage.setItem('img', String(i));
+    ImgRef.current.style.background = `url(${require(`../../assets/0${
+      i + 1
+    }.jpg`)}) no-repeat`;
+    ImgRef.current.style.backgroundSize = `100% 100%`;
+    setIndex(i);
+    message.success('更换成功', 1.5);
+  };
+  useEffect(() => {
+    if (localStorage.getItem('img')) {
+      let i = Number(localStorage.getItem('img'));
+      setIndex(i);
+      ImgRef.current.style.background = `url(${require(`../../assets/0${
+        i + 1
+      }.jpg`)}) no-repeat`;
+      ImgRef.current.style.backgroundSize = `100% 100%`;
+    }
+  }, []);
   return (
-    <div className={Style.box}>
-      <Card bordered={false} style={{ width: '33vw', height: 'auto' }}>
+    <div className={Style.box} ref={ImgRef}>
+      <div className={Style.home}>
+        <Link to="/">回到首页</Link>
+      </div>
+      <div className={Style.pifu} onClick={openShow}>
+        更换皮肤
+      </div>
+      <Card
+        bordered={false}
+        style={{
+          width: '33vw',
+          height: 'auto',
+          backgroundColor: 'transparent',
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0px 20px 10px rgba(0, 0, 0, 0.5)',
+        }}
+      >
         <p className={Style.title}>劲劲二手车</p>
         <Form
           name="login"
@@ -95,6 +151,21 @@ const index = () => {
           <a onClick={() => history.push('/register')}>没有账号？去注册</a>
         </p>
       </Card>
+      <Drawer title="更换皮肤" placement="right" onClose={onClose} open={open}>
+        <div className={Style.imgBox}>
+          {ImgList.map((item, index) => (
+            <div
+              className={`${Style.imgItem} ${
+                index === Index ? Style.imgbor : ''
+              }`}
+              key={index}
+              onClick={() => check(item, index)}
+            >
+              <img src={require(`../../assets/0${index + 1}.jpg`)} />
+            </div>
+          ))}
+        </div>
+      </Drawer>
     </div>
   );
 };

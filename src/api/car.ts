@@ -72,3 +72,11 @@ export const getCollectAllApi = (params: any) => {
     params,
   });
 };
+//搜索汽车
+export const selectCarApi = (params: any) => {
+  return request({
+    url: `/car/select`,
+    method: 'get',
+    params,
+  });
+};
